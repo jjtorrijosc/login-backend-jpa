@@ -1,8 +1,6 @@
 package com.jjtorri.login.backend.control;
 
 import java.math.BigInteger;
-import java.sql.Timestamp;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +8,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jjtorri.login.backend.model.Sesion;
@@ -67,6 +64,9 @@ public class UsuarioController {
         }
         return user;
     }
+    
+    
+    //TODO: crear metodo para consultar sesiones de usuario paramRequest 
     
     
     private void grabarSesion (BigInteger user_id) {

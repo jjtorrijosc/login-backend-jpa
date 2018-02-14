@@ -12,11 +12,11 @@ import javax.persistence.Id;
 @Entity
 public class Sesion {
 
-	
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO) 
-	private BigInteger userId;
+	private BigInteger sesion_id;
 	
+	private BigInteger userId;	
 	private Calendar acceso;
 
 	

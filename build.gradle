@@ -31,6 +31,8 @@ repositories {
 
 
 dependencies {
+	// https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
+	compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '1.1.7'
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile("org.springframework.boot:spring-boot-starter-data-rest")
 	testCompile('org.springframework.boot:spring-boot-starter-test')

@@ -1,6 +1,5 @@
 package com.jjtorri.login.backend.model;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -13,44 +12,47 @@ import javax.persistence.OneToMany;
 @Entity
 public class Usuario {
 
-	
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO) 
-	private BigInteger user_id;
-	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long userId;
+
 	private String username;
 	private String password;
 	private String email;
 	private String provider;
-	private String id_provider;
-	
+	private String idProvider;
+
 	@JoinColumn
 	@OneToMany
 	private List<Sesion> sesiones;
 
-	public Usuario () {
-		
+	public Usuario() {
+
 	}
+
 	
+	public long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(long userId) {
+		this.userId = userId;
+	}
+
 	public String getUsername() {
 		return username;
 	}
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	
-	public BigInteger getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(BigInteger user_id) {
-		this.user_id = user_id;
 	}
 
 	public String getEmail() {
@@ -69,12 +71,12 @@ public class Usuario {
 		this.provider = provider;
 	}
 
-	public String getId_provider() {
-		return id_provider;
+	public String getIdProvider() {
+		return idProvider;
 	}
 
-	public void setId_provider(String id_provider) {
-		this.id_provider = id_provider;
+	public void setIdProvider(String idProvider) {
+		this.idProvider = idProvider;
 	}
 
 	public List<Sesion> getSesiones() {
@@ -89,6 +91,5 @@ public class Usuario {
 	public String toString() {
 		return String.format("Usuario[username='%s']", this.username);
 	}
-	
-	
+
 }

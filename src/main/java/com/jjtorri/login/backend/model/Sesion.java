@@ -1,7 +1,5 @@
 package com.jjtorri.login.backend.model;
 
-import java.math.BigInteger;
-import java.sql.Timestamp;
 import java.util.Calendar;
 
 import javax.persistence.Entity;
@@ -13,23 +11,30 @@ import javax.persistence.Id;
 public class Sesion {
 
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO) 
-	private BigInteger sesion_id;
-	
-	private BigInteger userId;	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long sesionId;
+
+	private long userId;
 	private Calendar acceso;
 
-	
-	public Sesion () {
-		
+	public Sesion() {
+
 	}
 
 	
-	public BigInteger getUserId() {
+	public long getSesionId() {
+		return sesionId;
+	}
+
+	public void setSesionId(long sesionId) {
+		this.sesionId = sesionId;
+	}
+
+	public long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(BigInteger userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 
@@ -40,4 +45,5 @@ public class Sesion {
 	public void setAcceso(Calendar acceso) {
 		this.acceso = acceso;
 	}
+
 }

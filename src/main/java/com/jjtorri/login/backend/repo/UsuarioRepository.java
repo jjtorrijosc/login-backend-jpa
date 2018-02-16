@@ -6,7 +6,7 @@ import com.jjtorri.login.backend.model.Usuario;
 
 public interface UsuarioRepository extends CrudRepository<Usuario, String> {
 
-	public Usuario findByUsername(String username);
+	public Usuario findByEmail(String email);
 
 	@SuppressWarnings("unchecked")
 	public Usuario save(Usuario user);

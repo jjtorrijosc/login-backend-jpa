@@ -4,6 +4,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,45 +27,55 @@ public class UsuarioController {
 	@Autowired
 	private SesionRepository sesionRepo;
 
+	
 	@RequestMapping(value = "/usuario/login", method = RequestMethod.POST)
-	public boolean login(@RequestBody(required = true) Usuario user) {
-		boolean login = false;
+	public ResponseEntity<Object> login(@RequestBody(required = true) Usuario user) {
+		//boolean login = false;
 		Usuario userAux = null;
 
-		if (user != null) {
-			userAux = usuarioRepo.findByUsername(user.getUsername());
+		if (user != null && user.getEmail() != null) {
+			userAux = usuarioRepo.findByEmail(user.getEmail());
 
 			// si el usuario se ha logado por alguna red social lo almacenamos si
 			// es su primer login
 			if (user.getProvider() != null && !user.getProvider().equals("")) {
 				if (userAux == null) {
 					this.signUp(user);
-					userAux = usuarioRepo.findByUsername(user.getUsername());
+					userAux = usuarioRepo.findByEmail(user.getEmail());
 				}
-				login = true;
-				grabarSesion(user.getUserId());
+				//login = true;
+				grabarSesion(userAux.getUserId());
 			}
 
 			// sino validamos contra la pass de BD
-			else if (user.getUsername() != null && userAux.getUsername() != null) {
-				if (user.getUsername() != null && user.getUsername().equals(userAux.getUsername())
+			else if (user.getEmail()!= null && userAux.getEmail() != null && userAux != null
+					&& user.getEmail() != null && user.getEmail().equals(userAux.getEmail())
 						&& user.getPassword() != null && user.getPassword().equals(userAux.getPassword())) {
-					login = true;
-					grabarSesion(user.getUserId());
-				}
+					//login = true;
+					grabarSesion(userAux.getUserId());
+			} else {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid login, check your email and password");
 			}
-		}
-		return login;
+		} 
+
+		return ResponseEntity.ok(userAux);
 	}
 
 	@RequestMapping(value = "/usuario/sign-up", method = RequestMethod.POST)
-	public Usuario signUp(@RequestBody(required = true) Usuario user) {
+	public ResponseEntity<Object> signUp(@RequestBody(required = true) Usuario user) {
 
-		if (user != null) {
-			user = usuarioRepo.save(user);
-			grabarSesion(user.getUserId());
+		if (user != null && user.getEmail()!=null) {
+			Usuario userAux = usuarioRepo.findByEmail(user.getEmail());
+			if (userAux!=null) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid sigup, user alredy exists");
+			} else {
+				user = usuarioRepo.save(user);
+				grabarSesion(user.getUserId());
+			}
+		} else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid sigup, email must be specified");
 		}
-		return user;
+		return ResponseEntity.ok(user);
 	}
 
 	@RequestMapping("/sessions")

@@ -22,10 +22,6 @@ public class Usuario {
 	private String provider;
 	private String idProvider;
 
-	@JoinColumn
-	@OneToMany
-	private List<Sesion> sesiones;
-
 	public Usuario() {
 
 	}
@@ -77,14 +73,6 @@ public class Usuario {
 
 	public void setIdProvider(String idProvider) {
 		this.idProvider = idProvider;
-	}
-
-	public List<Sesion> getSesiones() {
-		return sesiones;
-	}
-
-	public void setSesiones(List<Sesion> sesiones) {
-		this.sesiones = sesiones;
 	}
 
 	@Override

@@ -48,7 +48,7 @@ public class UsuarioController {
 			}
 
 			// sino validamos contra la pass de BD
-			else if (user.getEmail()!= null && userAux.getEmail() != null && userAux != null
+			else if (user.getEmail()!= null && userAux != null && userAux.getEmail() != null 
 					&& user.getEmail() != null && user.getEmail().equals(userAux.getEmail())
 						&& user.getPassword() != null && user.getPassword().equals(userAux.getPassword())) {
 					//login = true;
@@ -56,7 +56,9 @@ public class UsuarioController {
 			} else {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid login, check your email and password");
 			}
-		} 
+		} else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid login, check your email and password");
+		}
 
 		return ResponseEntity.ok(userAux);
 	}

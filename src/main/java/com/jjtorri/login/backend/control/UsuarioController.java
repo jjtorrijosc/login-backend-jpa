@@ -18,8 +18,9 @@ import com.jjtorri.login.backend.model.Usuario;
 import com.jjtorri.login.backend.repo.SesionRepository;
 import com.jjtorri.login.backend.repo.UsuarioRepository;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 @RestController
+@RequestMapping("/usuario")
 public class UsuarioController {
 
 	@Autowired
@@ -28,7 +29,7 @@ public class UsuarioController {
 	private SesionRepository sesionRepo;
 
 	
-	@RequestMapping(value = "/usuario/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<Object> login(@RequestBody(required = true) Usuario user) {
 		//boolean login = false;
 		Usuario userAux = null;
@@ -63,7 +64,7 @@ public class UsuarioController {
 		return ResponseEntity.ok(userAux);
 	}
 
-	@RequestMapping(value = "/usuario/sign-up", method = RequestMethod.POST)
+	@RequestMapping(value = "/sign-up", method = RequestMethod.POST)
 	public ResponseEntity<Object> signUp(@RequestBody(required = true) Usuario user) {
 
 		if (user != null && user.getEmail()!=null) {
